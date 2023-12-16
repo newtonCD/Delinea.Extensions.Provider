@@ -1,0 +1,6 @@
+<Project>
+    <PropertyGroup>
+        <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+</Project>
