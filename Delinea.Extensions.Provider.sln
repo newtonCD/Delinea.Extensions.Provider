@@ -23,6 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{30CA7814-C59
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{52E6362F-92FC-488C-A943-AAC59897FBF9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{9AB2B63A-182E-4A6A-A435-AAB663EA0EB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delinea.Example.Api", "examples\Delinea.Example.Api\Delinea.Example.Api.csproj", "{AEC96475-6ABE-46BF-AA72-1922A26EED3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,12 +37,17 @@ Global
 		{A11582B0-BB34-4138-9097-6D1E6027C016}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A11582B0-BB34-4138-9097-6D1E6027C016}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A11582B0-BB34-4138-9097-6D1E6027C016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEC96475-6ABE-46BF-AA72-1922A26EED3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEC96475-6ABE-46BF-AA72-1922A26EED3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEC96475-6ABE-46BF-AA72-1922A26EED3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEC96475-6ABE-46BF-AA72-1922A26EED3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A11582B0-BB34-4138-9097-6D1E6027C016} = {30CA7814-C59F-421C-A584-84F75C444B9B}
+		{AEC96475-6ABE-46BF-AA72-1922A26EED3A} = {9AB2B63A-182E-4A6A-A435-AAB663EA0EB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1870EB6D-AEE1-4F63-9FBC-A9F72315366A}

@@ -26,7 +26,7 @@ public sealed class DelineaSecretVaultSettings
 
     public string? TokenContentType { get; set; } = "application/x-www-form-urlencoded";
 
-    public string? SecretsBasePath { get; set; } = "apps:group:app01:sit";
+    public string? SecretsBasePath { get; set; } // "apps:company:app_name:sit"
 
     public string? SecretsResource { get; set; } = "v1/secrets";
 
@@ -51,7 +51,7 @@ public sealed class DelineaSecretVaultSettings
         }
         else if (!Uri.TryCreate(BaseAddress, UriKind.Absolute, out _))
         {
-            fields.Add($"{nameof(BaseAddress)} não é uma URL válida.");
+            fields.Add($"'{nameof(BaseAddress)}' is not a valid URL.");
         }
 
 #pragma warning disable SA1503 // Braces should not be omitted
@@ -67,7 +67,7 @@ public sealed class DelineaSecretVaultSettings
 
         if (fields.Any())
         {
-            string errorMessage = $"[{ConfigurationSection}] - Os seguintes itens de configuração não foram configurados corretamente: {string.Join(", ", fields)}";
+            string errorMessage = $"[{ConfigurationSection}] - The following configuration items are not configured correctly: {string.Join(", ", fields)}";
             if (logger.IsEnabled(LogLevel.Error))
             {
 #pragma warning disable CA2254 // Template should be a static expression

@@ -69,7 +69,7 @@ public class DelineaConfigurationProvider : ConfigurationProvider, IDelineaConfi
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ocorreu um erro enquanto aguardava a conclusão da tarefa de polling.");
+                _logger.LogError(ex, "An error occurred while waiting for the polling task to complete.");
                 throw;
             }
         }
@@ -111,15 +111,20 @@ public class DelineaConfigurationProvider : ConfigurationProvider, IDelineaConfi
 
         if (!token.Success)
         {
-            throw new InvalidOperationException("Falha na obtenção do token.");
+            throw new InvalidOperationException("Some error occurred while obtaining the token.");
         }
 
-        var secretsList = await _delineaService.GetSecretListPathsAsync(token.AccessToken).ConfigureAwait(false) ?? throw new InvalidOperationException("Falha ao carregar a lista de secrets.");
+        var secretsList =
+            await _delineaService.GetSecretListPathsAsync(token.AccessToken).ConfigureAwait(false) ??
+                  throw new InvalidOperationException("Some error occurred while loading the list of secrets.");
+
         var secrets = new Dictionary<string, string?>(StringComparer.OrdinalIgnoreCase);
 
         foreach (string? secretPath in secretsList.Data)
         {
-            var secretResponse = await _delineaService.GetSecretAsync(token.AccessToken, secretPath).ConfigureAwait(false);
+            var secretResponse =
+                await _delineaService.GetSecretAsync(token.AccessToken, secretPath).ConfigureAwait(false);
+
             if (secretResponse?.Success == true && secretResponse.Data is Dictionary<string, string> secretData)
             {
                 foreach (var kvp in secretData)
@@ -133,8 +138,7 @@ public class DelineaConfigurationProvider : ConfigurationProvider, IDelineaConfi
     }
 
     [ExcludeFromCodeCoverage]
-    private static string Normalize(string key)
-        => key.Replace("__", ConfigurationPath.KeyDelimiter);
+    private static string Normalize(string key) => key.Replace("__", ConfigurationPath.KeyDelimiter);
 
     [ExcludeFromCodeCoverage]
     private void StartPollingForChanges()
@@ -166,7 +170,7 @@ public class DelineaConfigurationProvider : ConfigurationProvider, IDelineaConfi
 #pragma warning disable CA1031 // Catch a more specific allowed exception type
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro interno no consumo da api do Delinea.");
+                _logger.LogError(ex, "An internal error occurred while consuming the Delinea API.");
             }
 #pragma warning restore CA1031 // Catch a more specific allowed exception type
 

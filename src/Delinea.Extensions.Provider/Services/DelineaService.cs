@@ -7,6 +7,7 @@ using Delinea.Extensions.Provider.Interfaces;
 using Delinea.Extensions.Provider.Models;
 using Microsoft.Extensions.Logging;
 using Polly;
+using Polly.Retry;
 using RestSharp;
 
 namespace Delinea.Extensions.Provider.Services;
@@ -53,13 +54,13 @@ public class DelineaService : IDelineaService
                 }
                 else
                 {
-                    throw new DelineaServiceException("Problemas na obtenção do token. 'response.Data' retornou nulo.");
+                    throw new DelineaServiceException("There was a problem obtaining the token. 'response.Data' returned null.");
                 }
             }
 
             if (_logger.IsEnabled(LogLevel.Error))
             {
-                _logger.LogError(response.ErrorException, "Falha ao obter o token de acesso ao cofre de segredos: {ErrorMessage}", response.ErrorException?.Message);
+                _logger.LogError(response.ErrorException, "Failed to obtain secret vault access token: {ErrorMessage}", response.ErrorException?.Message);
             }
 
             throw new DelineaServiceException(response.ErrorMessage, response.ErrorException, response.StatusCode);
@@ -70,7 +71,7 @@ public class DelineaService : IDelineaService
     {
         if (string.IsNullOrWhiteSpace(token))
         {
-            throw new ArgumentException($"O parâmetro '{nameof(token)}' não pode estar em branco ou nulo.", nameof(token));
+            throw new ArgumentException($"The parameter '{nameof(token)}' cannot be null or empty.", nameof(token));
         }
 
         return GetSecretListPathsInternalAsync(token);
@@ -80,12 +81,12 @@ public class DelineaService : IDelineaService
     {
         if (string.IsNullOrWhiteSpace(token))
         {
-            throw new ArgumentException($"O parâmetro '{nameof(token)}' não pode estar em branco ou nulo.", nameof(token));
+            throw new ArgumentException($"The parameter '{nameof(token)}' cannot be null or empty.", nameof(token));
         }
 
         if (string.IsNullOrWhiteSpace(secretPath))
         {
-            throw new ArgumentException($"O parâmetro '{nameof(secretPath)}' não pode estar em branco ou nulo.", nameof(secretPath));
+            throw new ArgumentException($"The parameter '{nameof(secretPath)}' cannot be null or empty.", nameof(secretPath));
         }
 
         return GetSecretInternalAsync(token, secretPath);
@@ -113,7 +114,7 @@ public class DelineaService : IDelineaService
 
             if (_logger.IsEnabled(LogLevel.Error))
             {
-                _logger.LogError(response.ErrorException, "Falha ao obter a lista de segredos do cofre: {ErrorMessage}", response.ErrorException?.Message);
+                _logger.LogError(response.ErrorException, "Failed to get list of vault secrets: {ErrorMessage}", response.ErrorException?.Message);
             }
 
             throw new DelineaServiceException(response.ErrorMessage, response.ErrorException, response.StatusCode);
@@ -143,7 +144,7 @@ public class DelineaService : IDelineaService
 
             if (_logger.IsEnabled(LogLevel.Error))
             {
-                _logger.LogError(response.ErrorException, "Falha ao obter o segredo '{SecretPath}' do cofre: {ErrorMessage}", GetLastPartOfSecretPath(secretPath), response.ErrorException?.Message);
+                _logger.LogError(response.ErrorException, "Failed to obtain secret '{SecretPath}' from vault: {ErrorMessage}", GetLastPartOfSecretPath(secretPath), response.ErrorException?.Message);
             }
 
             throw new DelineaServiceException(response.ErrorMessage, response.ErrorException, response.StatusCode);
@@ -163,7 +164,7 @@ public class DelineaService : IDelineaService
         return input[(lastColonIndex + 1)..];
     }
 
-    private Polly.Retry.AsyncRetryPolicy CreateRetryPolicy()
+    private AsyncRetryPolicy CreateRetryPolicy()
     {
         return Policy
             .Handle<Exception>()
@@ -174,7 +175,7 @@ public class DelineaService : IDelineaService
                 {
                     if (_logger.IsEnabled(LogLevel.Warning))
                     {
-                        _logger.LogWarning(exception, "Tentativa {RetryCount} de conectar no cofre de segredos falhou. Atrasando por {TotalSeconds} segundos antes de tentar novamente.", retryCount, timeSpan.TotalSeconds);
+                        _logger.LogWarning(exception, "The {RetryCount} attempt to connect to the secret vault failed. Delaying {TotalSeconds} seconds before trying again.", retryCount, timeSpan.TotalSeconds);
                     }
                 });
     }
