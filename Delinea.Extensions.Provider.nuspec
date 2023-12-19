@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Delinea.Extensions.Provider</id>
+        <version>1.0.0</version>
+        <authors>newtonCD</authors>
+        <description>Delinea Secret Vault configuration provider implementation for Microsoft.Extensions.Configuration.</description>
+        <projectUrl>https://github.com/newtonCD/Delinea.Extensions.Provider</projectUrl>
+        <repository type="git" url="https://github.com/newtonCD/Delinea.Extensions.Provider" branch="master" />
+        <tags>config library csharp dotnet vault configuration secret-management configuration-management dotnet-core config-server class-library background-service secrets-management secret-vault</tags>
+        <license type="expression">MIT</license>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <readme>README.md</readme>
+    </metadata>
+
+    <files>
+        <file src="**" target="content" exclude=".git\**;**\bin\**;**\obj\**;.github\**;*.nuspec" />
+    </files>
+
+</package>

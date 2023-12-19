@@ -1,3 +1,5 @@
+[Leia isto em Português](README.pt.md)
+
 # Delinea.Extensions.Provider
 Delinea Secret Vault configuration provider implementation for Microsoft.Extensions.Configuration. This library enables you to read your application's settings directly from Delinea API.
 
