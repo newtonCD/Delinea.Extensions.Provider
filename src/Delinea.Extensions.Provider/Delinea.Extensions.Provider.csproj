@@ -4,8 +4,8 @@
         <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
         <PackageId>Delinea.Extensions.Provider</PackageId>
         <Version>1.0.0</Version>
-        <Authors>Newton Dantas</Authors>
-        <Company>Newton Dantas</Company>
+        <Authors>newtonCD</Authors>
+        <Company>newtonCD</Company>
         <PackageDescription>Delinea Secret Vault configuration provider implementation for Microsoft.Extensions.Configuration. This package enables you to read your application's settings from a Delinea API. You can use ".AddDelineaSecretVault" extension method on IConfigurationBuilder to add the Delinea configuration provider to the configuration builder.</PackageDescription>
         <AssemblyName>Delinea.Extensions.Provider</AssemblyName>
         <Description>Delinea Secret Vault configuration provider implementation for Microsoft.Extensions.Configuration. This package enables you to read your application's settings from a Delinea API. You can use ".AddDelineaSecretVault" extension method on IConfigurationBuilder to add the Delinea configuration provider to the configuration builder.</Description>
@@ -16,6 +16,7 @@
         <PackageTags>config;library;csharp;dotnet;vault;configuration;secret-management;configuration-management;dotnet-core;config-server;class-library;background-service;secrets-management;secret-vault</PackageTags>
         <RepositoryUrl>https://github.com/newtonCD/Delinea.Extensions.Provider</RepositoryUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 
     <ItemGroup>
