@@ -55,8 +55,11 @@ public class DelineaConfigurationProvider : ConfigurationProvider, IDelineaConfi
 
         _disposedValue = true;
 
+#if NET8_0_OR_GREATER
+        await _cts.CancelAsync().ConfigureAwait(false);
+#else
         _cts.Cancel();
-
+#endif
         if (_reloadTask?.IsCompleted == false)
         {
             try

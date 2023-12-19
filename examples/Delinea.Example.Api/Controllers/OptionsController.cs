@@ -22,6 +22,11 @@ public class OptionsController : ControllerBase
         string? azureAdB2EClientId = _settings.Value.ClientId;
         string? azureAdB2EClientSecret = _settings.Value.ClientSecret;
 
+        if (string.IsNullOrEmpty(azureAdB2EClientId) || string.IsNullOrEmpty(azureAdB2EClientSecret))
+        {
+            return BadRequest("Azure AD B2E settings not found.");
+        }
+
         return new Dictionary<string, string>
         {
             ["AzureAdB2E:ClientId"] = azureAdB2EClientId,
