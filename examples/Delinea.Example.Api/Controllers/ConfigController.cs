@@ -21,6 +21,11 @@ public class ConfigController : ControllerBase
         string? azureAdB2EClientId = _configuration["AzureAdB2E:ClientId"];
         string? azureAdB2EClientSecret = _configuration["AzureAdB2E:ClientSecret"];
 
+        if (string.IsNullOrEmpty(azureAdB2EClientId) || string.IsNullOrEmpty(azureAdB2EClientSecret))
+        {
+            return BadRequest("Azure AD B2E settings not found.");
+        }
+
         return new Dictionary<string, string>
         {
             ["AzureAdB2E:ClientId"] = azureAdB2EClientId,
